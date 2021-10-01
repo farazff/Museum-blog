@@ -1,7 +1,25 @@
-<?php
+<html lang="EN">
+<head>
+    <title>Pictures</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+    <body>
 
-include "DBHandler.php";
 
-$db = new DBHandler();
+        <?php
+            include 'DBHandler.php';
+            $db = new DBHandler();
 
-$db->addStoryComment("hello this is good picture", "faraz", 3);
+            $pictures = $db->getPictures();
+
+            for($i = 0; $i < count($pictures); $i++)
+            {
+
+//                echo '<a href="'.$pictures[$i]['link'].'" /></a>';
+                echo '<img  src="'.$pictures[$i]['link'].'">  ';
+                echo '<br>';
+            }
+//            echo "writer: ", $db->getName($writer);
+        ?>
+    </body>
+</html>
