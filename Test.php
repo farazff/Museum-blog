@@ -4,4 +4,4 @@ include "DBHandler.php";
 
 $db = new DBHandler();
 
-var_dump($db->getPictures());
+$db->addStoryComment("hello this is good picture", "faraz", 3);
