@@ -37,6 +37,24 @@ class DBHandler
         }
     }
 
+    function getPictureComment($picId): ?array
+    {
+        $sql = "select text, writer_name FROM picture_comment WHERE pic_id='{$picId}'";
+
+        if (($respond = $this->conn->query($sql)) == TRUE) {
+            $comments = [];
+            while ($row = $respond->fetch_assoc()) {
+                $comments[] = [
+                    'text' => $row['text'],
+                    'writer_name' => $row['writer_name'],
+                ];
+            }
+            return $comments;
+        } else {
+            return null;
+        }
+    }
+
 
     function getStories(): ?array
     {
