@@ -15,7 +15,7 @@
             echo '<img  src="'.$pictures[$i]['link'].'">  ';
             echo '<h3>Painter: '.$pictures[$i]['painter_name'].'</h3>';
 
-            echo '<a href="Comment.php?type=newComment">Write comment</a>';
+            echo '<a href="Comment.php?type=newComment&picId='.$pictures[$i]['id'].'">Write comment</a>';
 
             $comments = $db->getPictureComment($pictures[$i]['id']);
             if(count($comments) != 0)
