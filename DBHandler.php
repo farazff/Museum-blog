@@ -105,10 +105,10 @@ class DBHandler
         }
     }
 
-    function addStoryComment($text, $title, $writerName, $storyId)
+    function addStoryComment($text, $writerName, $storyId)
     {
-        $sql = "INSERT INTO story_comment (title, text, writer_name, story_id)
-            VALUES ('{$title}', '{$text}', '{$writerName}', '{$storyId}')";
+        $sql = "INSERT INTO story_comment (text, writer_name, story_id)
+            VALUES ('{$text}', '{$writerName}', '{$storyId}')";
 
         if ($this->conn->query($sql) === TRUE) {
             echo "New record created successfully";

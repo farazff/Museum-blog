@@ -7,22 +7,38 @@
 
     <?php
         $commentErr = "";
-        $pic_id = -1;
+        $isStory = false;
+        $isPicture = false;
+        $id = -1;
         include "DBHandler.php";
         $db = new DBHandler();
 
         $comment = $postId = $replyId = "";
 
         if (isset($_GET["picId"])) {
-            $pic_id = $_GET["picId"];
+            $isPicture = true;
+            $id = $_GET["picId"];
+        }
+
+        if (isset($_GET["storyId"])) {
+            $isStory = true;
+            $id = $_GET["storyId"];
         }
 
         if (isset($_POST["submit"])) {
-
             $text = $_POST['text'];
             $writer_name = $_POST['writer_name'];
-            $db->addPictureComment($text, $writer_name, $pic_id);
-            header("Location: Pictures.php");
+            if($isPicture)
+            {
+                $db->addPictureComment($text, $writer_name, $id);
+                header("Location: Pictures.php");
+            }
+            if($isStory)
+            {
+                $db->addStoryComment($text, $writer_name, $id);
+                header("Location: Stories.php");
+            }
+
         }
     ?>
 
