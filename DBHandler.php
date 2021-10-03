@@ -55,21 +55,39 @@ class DBHandler
         }
     }
 
-
     function getStories(): ?array
     {
-        $sql = "select id, text, writer_name FROM pictures";
+        $sql = "select id, title, text, writer_name FROM stories";
 
         if (($respond = $this->conn->query($sql)) == TRUE) {
             $stories = [];
             while ($row = $respond->fetch_assoc()) {
                 $stories[] = [
                     'id' => $row['id'],
+                    'title' => $row['title'],
                     'text' => $row['text'],
                     'writer_name' => $row['writer_name'],
                 ];
             }
             return $stories;
+        } else {
+            return null;
+        }
+    }
+
+    function getStoryComment($storyId): ?array
+    {
+        $sql = "select text, writer_name FROM story_comment WHERE story_id='{$storyId}'";
+
+        if (($respond = $this->conn->query($sql)) == TRUE) {
+            $comments = [];
+            while ($row = $respond->fetch_assoc()) {
+                $comments[] = [
+                    'text' => $row['text'],
+                    'writer_name' => $row['writer_name'],
+                ];
+            }
+            return $comments;
         } else {
             return null;
         }
@@ -87,10 +105,10 @@ class DBHandler
         }
     }
 
-    function addStoryComment($text, $writerName, $storyId)
+    function addStoryComment($text, $title, $writerName, $storyId)
     {
-        $sql = "INSERT INTO story_comment (text, writer_name, story_id)
-            VALUES ('{$text}', '{$writerName}', '{$storyId}')";
+        $sql = "INSERT INTO story_comment (title, text, writer_name, story_id)
+            VALUES ('{$title}', '{$text}', '{$writerName}', '{$storyId}')";
 
         if ($this->conn->query($sql) === TRUE) {
             echo "New record created successfully";
