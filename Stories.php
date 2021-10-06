@@ -14,6 +14,11 @@
     {
         echo '<h2>'.$stories[$i]['title'].'</h2>';
         echo '<h3>'.$stories[$i]['text'].'</h3>';
+        $src = "Story" . $i . ".mp3";
+        echo '<audio controls>
+                      <source src= " '.$src.' "  type="audio/mpeg">
+                      Your browser does not support the audio element.
+                      </audio>';
         echo '<h3>Writer: '.$stories[$i]['writer_name'].'</h3>';
 
         echo '<a href="Comment.php?type=newComment&storyId='.$stories[$i]['id'].'">Write comment</a>';
