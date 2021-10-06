@@ -1,7 +1,6 @@
 <html lang="EN">
 <head>
     <title>Pictures</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <?php
