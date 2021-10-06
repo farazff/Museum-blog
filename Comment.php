@@ -40,7 +40,7 @@
             {
                 $DbID = $db->addStoryComment($text, $writer_name, $id);
                 $convertor = new TextToSpeech();
-                $convertor->CreateSpeechFile($text, 'S' . $DbID['id']);
+                $convertor->CreateSpeechFile($text, 'S.' . $DbID['id']);
                 header("Location: Stories.php");
             }
 
