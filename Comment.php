@@ -11,6 +11,7 @@
         $isPicture = false;
         $id = -1;
         include "DBHandler.php";
+        include "TextToSpeech.php";
         $db = new DBHandler();
 
         $comment = $postId = $replyId = "";
@@ -30,12 +31,16 @@
             $writer_name = $_POST['writer_name'];
             if($isPicture)
             {
-                $db->addPictureComment($text, $writer_name, $id);
+                $DbID = $db->addPictureComment($text, $writer_name, $id);
+                $convertor = new TextToSpeech();
+                $convertor->CreateSpeechFile($text, 'P.' . $DbID['id']);
                 header("Location: Pictures.php");
             }
             if($isStory)
             {
-                $db->addStoryComment($text, $writer_name, $id);
+                $DbID = $db->addStoryComment($text, $writer_name, $id);
+                $convertor = new TextToSpeech();
+                $convertor->CreateSpeechFile($text, 'S' . $DbID['id']);
                 header("Location: Stories.php");
             }
 

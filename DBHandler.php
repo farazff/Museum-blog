@@ -100,8 +100,12 @@ class DBHandler
 
         if ($this->conn->query($sql) === TRUE) {
             echo "New record created successfully";
+            $sql = "select id FROM picture_comment ORDER BY id DESC LIMIT 1";
+            return $this->conn->query($sql)->fetch_array();
+
         } else {
             echo "Error: " . $sql . $this->conn->error;
+            return null;
         }
     }
 
@@ -112,8 +116,11 @@ class DBHandler
 
         if ($this->conn->query($sql) === TRUE) {
             echo "New record created successfully";
+            $sql = "select id FROM story_comment ORDER BY id DESC LIMIT 1";
+            return $this->conn->query($sql)->fetch_array();
         } else {
             echo "Error: " . $sql . $this->conn->error;
+            return null;
         }
     }
 
