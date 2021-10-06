@@ -26,7 +26,12 @@
 
         for($j = 0; $j < count($comments); $j++)
         {
+            $src = "S." . $comments[$j]['id'] . ".mp3";
             echo '<h3>'.$comments[$j]['writer_name']. ': '.$comments[$j]['text'].'</h3>';
+            echo '<audio controls>
+                      <source src= " '.$src.' "  type="audio/mpeg">
+                      Your browser does not support the audio element.
+                      </audio>';
         }
 
         echo '<br>';

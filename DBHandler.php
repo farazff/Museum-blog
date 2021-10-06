@@ -39,12 +39,13 @@ class DBHandler
 
     function getPictureComment($picId): ?array
     {
-        $sql = "select text, writer_name FROM picture_comment WHERE pic_id='{$picId}'";
+        $sql = "select id, text, writer_name FROM picture_comment WHERE pic_id='{$picId}'";
 
         if (($respond = $this->conn->query($sql)) == TRUE) {
             $comments = [];
             while ($row = $respond->fetch_assoc()) {
                 $comments[] = [
+                    'id' => $row['id'],
                     'text' => $row['text'],
                     'writer_name' => $row['writer_name'],
                 ];
@@ -77,12 +78,13 @@ class DBHandler
 
     function getStoryComment($storyId): ?array
     {
-        $sql = "select text, writer_name FROM story_comment WHERE story_id='{$storyId}'";
+        $sql = "select id, text, writer_name FROM story_comment WHERE story_id='{$storyId}'";
 
         if (($respond = $this->conn->query($sql)) == TRUE) {
             $comments = [];
             while ($row = $respond->fetch_assoc()) {
                 $comments[] = [
+                    'id' => $row['id'],
                     'text' => $row['text'],
                     'writer_name' => $row['writer_name'],
                 ];
