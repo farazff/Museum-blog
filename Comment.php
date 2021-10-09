@@ -12,6 +12,7 @@
         $id = -1;
         include "DBHandler.php";
         include "TextToSpeech.php";
+        include "CommentUnderstanding.php";
         $db = new DBHandler();
 
         $comment = $postId = $replyId = "";
@@ -29,18 +30,35 @@
         if (isset($_POST["submit"])) {
             $text = $_POST['text'];
             $writer_name = $_POST['writer_name'];
-            if($isPicture)
+
+
+            $textToAPI = $text;
+            if(strlen($text) <= 10)
             {
-                $DbID = $db->addPictureComment($text, $writer_name, $id);
-                $convertor = new TextToSpeech();
-                $convertor->CreateSpeechFile($text, 'P.' . $DbID['id']);
+                $text = $text . "          ";
+            }
+            $checker = new CommentUnderstanding();
+            $isClean = $checker->AnalyzeComment($textToAPI);
+
+            if($isClean) {
+                if ($isPicture) {
+                    $DbID = $db->addPictureComment($text, $writer_name, $id);
+                    $convertor = new TextToSpeech();
+                    $convertor->CreateSpeechFile($text, 'P.' . $DbID['id']);
+                    header("Location: Pictures.php");
+                }
+                if ($isStory) {
+                    $DbID = $db->addStoryComment($text, $writer_name, $id);
+                    $convertor = new TextToSpeech();
+                    $convertor->CreateSpeechFile($text, 'S.' . $DbID['id']);
+                    header("Location: Stories.php");
+                }
+            }
+
+            if ($isPicture) {
                 header("Location: Pictures.php");
             }
-            if($isStory)
-            {
-                $DbID = $db->addStoryComment($text, $writer_name, $id);
-                $convertor = new TextToSpeech();
-                $convertor->CreateSpeechFile($text, 'S.' . $DbID['id']);
+            if ($isStory) {
                 header("Location: Stories.php");
             }
 
