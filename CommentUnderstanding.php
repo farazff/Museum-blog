@@ -22,16 +22,16 @@ class CommentUnderstanding
         if (curl_errno($ch)) {
             echo 'Error:' . curl_error($ch);
         }
-        curl_close($ch);
 
+        curl_close($ch);
 
         $resultJson = json_decode((string)$result);
 
-        var_dump($resultJson);
-
-
         $anger = ((array_values((array)((array_values((array)(array_values((array)((array_values((array)$resultJson))[2])))[0]))[0])))[4]);
-        if ($anger >= 0.6) {
+        $disgust = ((array_values((array)((array_values((array)(array_values((array)((array_values((array)$resultJson))[2])))[0]))[0])))[3]);
+        $fear = ((array_values((array)((array_values((array)(array_values((array)((array_values((array)$resultJson))[2])))[0]))[0])))[2]);
+
+        if ($anger >= 0.6 || $disgust >= 0.4 || $fear >= 0.4) {
             return false;
         } else {
             return true;
